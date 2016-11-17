@@ -1,0 +1,104 @@
+<%- @settings["default_language"] = "" if @settings["default_language"].nil? -%>
+<%- @settings["locales_to_translate"] = [] if @settings["locales_to_translate"].nil? -%>
+<%- @settings["locales"] = {} if @settings["locales"].nil? -%>
+
+<%- locales = valid_languages.collect{|lang| [ ll(lang.to_s, :general_lang_name), lang.to_s]}.sort{|x,y| x.last <=> y.last} -%>
+<%- locales_select = options_for_select(locales, @settings["default_language"]) -%>
+<%- row_size = 3 -%>
+<%- locales_rows = (locales.size / row_size) + (((locales.size % row_size) > 0) ? 1 : 0) -%>
+  
+<fieldset>
+  <legend>
+    <%= l(:label_locales_to_translate) %>
+  </legend>
+  <p>
+    <label><%= l(:label_default_language) %></label>
+    <%= select_tag("settings[default_language]", locales_select) %>
+    <br />
+    <em><%= l(:label_default_language_note) %></em>
+  </p>
+  <p>
+    <label><%= l(:label_locales_to_translate) %></label>
+    <%- i = 0 -%>
+    <span>
+      <table width="100%">
+      <%- while i < locales_rows -%>
+        <tr>
+        <%- j = 0 -%>
+        <%- while j < row_size -%>
+          <td>
+          <%- k = (i * row_size) + j -%>
+          <%- if k < locales.size -%>
+            <input type="checkbox"
+                   name="settings[locales_to_translate][]"
+                   value="<%= locales[k][1] %>" 
+                   <%= (@settings["default_language"] == locales[k][1]) ? "disabled=\"disabled\"" : "" %>
+                   <%= (@settings["default_language"] == locales[k][1] or @settings["locales_to_translate"].include?(locales[k][1])) ? "checked" : "" %>/>
+            <%= locales[k][0] %>
+          <%- end -%>
+          </td>
+          <%- j += 1 -%>
+        <%- end -%>
+        </tr>
+        <%- i += 1 -%>
+      <%- end -%>
+      </table>
+    </span>
+  </p>
+</fieldset>
+
+<%- elements = [{:name => "role", :objects => Role.all, :label => :label_role_plural},
+                {:name => "tracker", :objects => Tracker.all, :label => :label_tracker_plural},
+                {:name => "issue_status", :objects => IssueStatus.all, :label => :label_issue_status_plural},
+                {:name => "custom_field", :objects => CustomField.all, :label => :label_custom_field_plural},
+                {:name => "enumeration", :objects => Enumeration.where("project_id IS NULL").sort{|a, b| a.type.downcase <=> b.type.downcase}, :label => :label_enumerations}] -%>
+<%- type_labels = {"Issue" => :label_issue_plural,
+                   "TimeEntry" => :label_time_entry_plural,
+                   "Project" => :label_project_plural,
+                   "Version" => :label_version_plural,
+                   "User" => :label_user_plural,
+                   "Group" => :label_group_plural,
+                   "TimeEntryActivity" => :enumeration_activities,
+                   "IssuePriority" => :enumeration_issue_priorities,
+                   "DocumentCategory" => :enumeration_doc_categories} -%>
+
+<%- elements.each do |element| -%>
+<%- unless element[:objects].empty? -%>
+<%- type = element[:name].camelize -%>
+<br />
+<h2><%= l(element[:label]) %></h2>
+<table>
+  <thead>
+    <th align="left" width="180px"><%= ll(@settings["default_language"], :general_lang_name) %></th>
+    <%- @settings["locales_to_translate"].each do |locale| -%>
+    <th align="left"><%= ll(locale, :general_lang_name) %></th>
+    <%- end -%>
+  </thead>
+  <tbody>
+  <%- @settings["locales"][element[:name]] = {} if @settings["locales"][element[:name]].nil? -%>
+  <%- element[:objects].each do |object| -%>
+    <%- if type != object.class.to_s -%>
+    <%- type = object.class.to_s -%>
+    <tr>
+      <td colspan="<%= @settings["locales_to_translate"].size + 1 %>">
+        <b><em><%= l(type_labels[object.type.to_s.gsub(/CustomField/, "")]) %></em></b>
+      </td>
+    </tr>
+    <%- end -%>
+    <%- @settings["locales"][element[:name]][object.id.to_s] = {} if @settings["locales"][element[:name]][object.id.to_s].nil? -%>
+    <tr>
+      <td>
+        <%= object.name(true) %>
+      </td>
+      <%- @settings["locales_to_translate"].each do |locale| -%>
+      <td align="left">
+        <input name="settings[locales][<%= element[:name] %>][<%= object.id %>][<%= locale.to_s.force_encoding("UTF-8") %>]"
+               value="<%= @settings["locales"][element[:name]][object.id.to_s][locale].to_s.force_encoding("UTF-8") %>" />
+      </td>
+      <%- end -%>
+    </tr>
+  <%- end -%>
+  </tbody>
+</table>
+<%- end -%>
+<%- end -%>

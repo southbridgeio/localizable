@@ -1,0 +1,4 @@
+en:
+  label_default_language: "Default language"
+  label_default_language_note: "This language will not be translated, the value itself will be used instead."
+  label_locales_to_translate: "Locales to translate"

@@ -1,0 +1,4 @@
+es:
+  label_default_language: "Idioma por defecto"
+  label_default_language_note: "Este idioma no será traducido, se usará el propio valor en vez de."
+  label_locales_to_translate: "Idiomas a traducir"
