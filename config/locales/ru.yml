@@ -1,0 +1,5 @@
+ru:
+  label_default_language: "Язык по умолчанию"
+  label_default_language_note: "Этот язык не будет переводиться, будет использован как исходный язык"
+  label_locales_to_translate: "Языки для перевода"
+  field_name_in_english: "Имя Фамилия на английском"
