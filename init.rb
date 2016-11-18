@@ -14,6 +14,14 @@ end
 
 require "redmine"
 require "rubygems"
+require_dependency "localizable/view_hooks"
+
+Rails.configuration.to_prepare do
+  require_dependency 'project'
+  require_dependency 'principal'
+  require_dependency 'user'
+  User.send(:include, Localizable::UserPatch)
+end
 
 Role.send(:include, RolePatch)
 Tracker.send(:include, TrackerPatch)
@@ -29,7 +37,7 @@ Redmine::Plugin.register :localizable do
   description "This is a plugin for Redmine that is used to show strings (issue types, issue statuses, enumerations, ...) in serveral languages"
   version "0.4.0"
   requires_redmine :version_or_higher => "2.1.0"
-  
+
   settings(:default => {"default_language" => "en",
                         "locales_to_translate" => [],
                         "locales" => {"tracker" => {},
