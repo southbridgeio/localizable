@@ -26,7 +26,7 @@ module Localizable
       if  User.current.language.to_s == 'en' and name_in_english.present?
         name_in_english
       else
-        name_without_localizable
+        name_without_localizable(formatter)
       end
     end
   end
