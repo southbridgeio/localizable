@@ -1,4 +1,4 @@
-class AddEnNameToUser < ActiveRecord::Migration
+class AddEnNameToUser < Rails.version < '5.0' ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
 
   def self.up
     add_column(:users, "name_in_english", :string)

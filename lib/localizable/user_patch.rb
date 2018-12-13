@@ -17,7 +17,8 @@ module Localizable
         unloadable # Send unloadable so it will not be unloaded in development.
         safe_attributes 'name_in_english'
 
-        alias_method_chain :name, :localizable
+        alias_method :name_without_localizable, :name
+        alias_method :name, :name_with_localizable
       end
     end
   end
