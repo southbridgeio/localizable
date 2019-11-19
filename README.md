@@ -16,7 +16,7 @@ Once installed, go to Administration, Extensions and click on Configuration link
 
 Steps:
 
-1. Download last version from: https://github.com/centosadmin/localizable.git
+1. Download last version from: https://github.com/southbridgeio/localizable.git
 2. Copy plugin directory into #{RAILS_ROOT}/plugins.
 3. Run the following command in #{RAILS_ROOT} to upgrade your database: `bundle exec rake redmine:plugins:migrate NAME=localizable RAILS_ENV=production`
 4. Restart Redmine.
