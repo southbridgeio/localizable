@@ -14,7 +14,7 @@ end
 
 require "redmine"
 require "rubygems"
-require_dependency "localizable/view_hooks"
+require_dependency "./plugins/localizable/lib/localizable/view_hooks"
 
 Rails.configuration.to_prepare do
   require_dependency 'project'

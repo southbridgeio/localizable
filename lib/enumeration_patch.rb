@@ -8,7 +8,6 @@
 # Take a look to licence.txt file at plugin root folder for further details.
 
 require_dependency "enumeration"
-require "localizable"
 
 module EnumerationPatch
   def self.included(base)
