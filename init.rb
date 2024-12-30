@@ -9,7 +9,8 @@
 
 # This plugin should be reloaded in development mode.
 if (Rails.env == "development")
-  ActiveSupport::Dependencies.autoload_once_paths.reject!{|x| x =~ /^#{Regexp.escape(File.dirname(__FILE__))}/}
+  mapped_paths = ActiveSupport::Dependencies.autoload_once_paths.map { |path| path =~ /^#{Regexp.escape(File.dirname(__FILE__))}/ }
+  ActiveSupport::Dependencies.autoload_once_paths = mapped_paths
 end
 
 require "redmine"
