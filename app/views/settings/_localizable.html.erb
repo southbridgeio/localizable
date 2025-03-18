@@ -88,7 +88,7 @@
     <%- @settings["locales"][element[:name]][object.id.to_s] = {} if @settings["locales"][element[:name]][object.id.to_s].nil? -%>
     <tr>
       <td>
-        <%= object.name(true) %>
+        <%= object.name %>
       </td>
       <%- @settings["locales_to_translate"].each do |locale| -%>
       <td align="left">
