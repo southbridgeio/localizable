@@ -1,29 +1,8 @@
-# Localizable
+# Localizable Changes
 
-In Redmine when you add roles, issue statuses, enumerations, ... you can only add them in one language, this plugin overloads this limitation.
+1.0.0
+----------
 
-This plugin allows to define customizable locales in any language for these items:
-
-- Roles.
-- Trackers (issues types).
-- Issue statuses.
-- Custom fields.
-- Enumerations.
-
-Once installed, go to Administration, Extensions and click on Configuration link on this plugin.
-
-## Installation notes
-
-Steps:
-
-1. Download last version from: https://github.com/southbridgeio/localizable.git
-2. Copy plugin directory into #{RAILS_ROOT}/plugins.
-3. Run the following command in #{RAILS_ROOT} to upgrade your database: `bundle exec rake redmine:plugins:migrate NAME=localizable RAILS_ENV=production`
-4. Restart Redmine.
-
-Original: http://www.redmine.org/plugins/localizable
-
-## Support notes
 This is a Localizable plugin of version "0.4.0" updated with SouthBridge.
 
 Compatibility: Redmine 6.1 / Rails 7.2 / Ruby 3.3
@@ -44,3 +23,8 @@ Modern Ruby/Rails patterns:
 
 Testing:
 - Plugin tested with Redmine 6.1.0-stable, Rails 7.2.2.2, Ruby 3.3.10
+
+0.4.0
+----------
+Basic version of "Localizable plugin"
+- https://redmine.ociotec.com/projects/localizable
