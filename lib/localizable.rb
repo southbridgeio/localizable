@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 # Copyright © Emilio González Montaña
 # Licence: Attribution & no derivates
 #   * Attribution to the plugin web page URL should be done if you want to use it.
